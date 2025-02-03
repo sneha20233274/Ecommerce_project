@@ -179,7 +179,11 @@ app.post('/removefromcart',fetchUser,async(req,res)=>{
      res.send("Removed")
 })
 
-
+app.post('/getcart',fetchUser,async(req,res)=>{
+    console.log("GetCart");
+    let userData=await Users.findOne({_id:req.user.id});
+    res.json(userData.cartData);
+})
 app.post('/signup', async (req, res) => {
     let check = await Users.findOne({ email: req.body.email });
     if (check) {
@@ -210,7 +214,7 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
     let user = await Users.findOne({ email: req.body.email });
     if (user) {
-        const passCompare = req.body.passwrod == user.password;
+        const passCompare = req.body.password == user.password;
         if (passCompare) {
             const data = {
                 user: {

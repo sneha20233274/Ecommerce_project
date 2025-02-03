@@ -6,7 +6,7 @@ const NewCollections = () => {
   useEffect(()=>{
     fetch('http://localhost:4000/newcollections').then((response)=>response.json())
     .then((data)=>setNew_collection(data));
-  })
+  },[])
   return (
     <div className ='new-collections'>
       <h1>NEW COLLECTIONS</h1>
