@@ -20,7 +20,7 @@ app.get("/",(req,res)=>{
 const storage = multer.diskStorage({
     destination:'./upload/images',
     filename:(req,file,cb)=>{
-        return cb(null,'${file.fieldname}_${Date.now()}${path.extname(file.originalname)}')
+        return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     }
  })
  const upload = multer({storage:storage})
@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
  app.post("/upload",upload.single('product'),(req,res)=>{
      res.json({
      success:1,
-     image_url:'http://localhost:${port}/images/${req.file.filename}'
+     image_url:`http://localhost:${port}/images/${req.file.filename}`
      })
  })
  //Schema for creating products;
@@ -133,6 +133,20 @@ const Users = mongoose.model('Users',{
         type:Date,
         default:Date.now,
     }
+})
+app.get('/newcollections',async(req,res)=>{
+    let products=await Product.find({});
+    let newcollection=products.slice(1).slice(-8);
+    console.log("NewCollection fetched");
+    res.send(newcollection);
+
+})
+app.get('/popularinwomen',async(req,res)=>{
+    let products=await Product.find({category:"women"});
+    let popular_in_women=products.slice(0,4);
+    console.log("Popular in women fetched");
+    res.send(popular_in_women);
+
 })
 app.post('/signup',async(req,res)=>{
     let check = await Users.findOne({email:req.body.email});
