@@ -137,7 +137,7 @@ const Users = mongoose.model('Users',{
 app.post('/signup',async(req,res)=>{
     let check = await Users.findOne({email:req.body.email});
     if(check){
-        return res.status(400).json({success:false,error:"existing user found with same email Address"})
+        return res.status(400).json({success:false,errors:"existing user found with same email Address"})
     }
     let cart = {};
     for(let i = 0 ; i<300 ; i++){
@@ -176,7 +176,7 @@ app.post('/login',async(req,res) =>{
             res.json({success:true,token});
         }
         else{
-            res.json({success:'false' , errors:"wrong Password"});
+            res.json({success:false , errors:"wrong Password"});
         }
     }
     else{

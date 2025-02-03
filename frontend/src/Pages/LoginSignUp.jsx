@@ -8,9 +8,9 @@ const LoginSignup = () => {
     email: "",
   });
   const login = async () => {
-    console.log("Signp function executed",formData);
+    console.log("Login function executed",formData);
     let responseData;
-    await fetch('http://localhost:4000/signup',{
+    await fetch('http://localhost:4000/login',{
       method:"POST",
       headers:{
         Accept: 'application/form-data',
@@ -28,9 +28,9 @@ const LoginSignup = () => {
     }
   };
   const signup = async () => {
-    console.log("login function executed",formData);
+    console.log("Signup function executed",formData);
     let responseData;
-    await fetch('http://localhost:4000/login',{
+    await fetch('http://localhost:4000/signup',{
       method:"POST",
       headers:{
         Accept: 'application/form-data',
